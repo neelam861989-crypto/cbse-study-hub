@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBSE Study Hub - Learn & Explore</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue:#2457db;
+  --dark:#17233d;
+  --muted:#718096;
+  --bg:#f5f7fb;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,sans-serif}
+body{background:var(--bg);color:var(--dark)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{
+  height:75px;background:white;padding:0 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #e9edf5;position:sticky;top:0;z-index:20;
+}
+.logo{font-size:23px;font-weight:800;color:var(--blue)}
+.logo span{color:var(--dark)}
+nav{display:flex;gap:27px;align-items:center}
+nav a{font-size:13px;font-weight:600;color:#536078}
+nav a:hover{color:var(--blue)}
+.header-btn,.primary-btn{
+  background:var(--blue);color:white;border:0;border-radius:8px;
+  padding:12px 18px;font-weight:700;font-size:13px;
+}
+.menu{display:none;background:none;border:0;font-size:25px}
+
+/* HERO */
+.hero{
+  padding:65px 7%;background:linear-gradient(120deg,#eaf0ff,#f4edff);
+  display:flex;align-items:center;justify-content:space-between;gap:35px;
+}
+.hero-content{max-width:620px}
+.eyebrow{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:1.5px}
+.hero h1{font-size:clamp(35px,5vw,55px);line-height:1.15;margin:17px 0}
+.hero h1 span{color:var(--blue)}
+.hero p{color:var(--muted);line-height:1.8;font-size:15px}
+.hero-art{
+  width:270px;height:230px;border-radius:24px;
+  background:linear-gradient(135deg,#2457db,#8a63e8);
+  display:grid;place-items:center;color:white;font-size:95px;
+  box-shadow:0 20px 45px #2457db35;
+}
+
+/* SEARCH */
+.search-area{padding:0 7%;margin-top:-25px;position:relative}
+.search-box{
+  background:white;padding:18px;display:flex;gap:12px;
+  border-radius:13px;box-shadow:0 8px 30px #17233d10;
+}
+.search-box input{
+  flex:1;border:0;outline:0;padding:10px;font-size:14px;min-width:0;
+}
+.search-box button{border:0;background:var(--blue);color:white;padding:12px 24px;border-radius:8px;font-weight:700}
+
+/* GENERAL */
+.section{padding:65px 7%}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px;gap:15px}
+.section-head h2{font-size:25px;margin-bottom:7px}
+.section-head p{font-size:13px;color:var(--muted)}
+.text-link{color:var(--blue);font-size:13px;font-weight:700}
+
+/* CLASSES */
+.class-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.class-card{
+  background:white;border:1px solid #e9edf5;border-radius:13px;
+  padding:22px;transition:.2s;cursor:pointer;
+}
+.class-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px #17233d10}
+.class-icon{
+  width:48px;height:48px;border-radius:12px;background:#edf2ff;
+  display:grid;place-items:center;font-size:24px;margin-bottom:15px;
+}
+.class-card h3{font-size:17px;margin-bottom:7px}
+.class-card p{font-size:12px;color:var(--muted)}
+
+/* CATEGORIES */
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px}
+.category{
+  padding:10px 17px;border:1px solid #e0e6f0;background:white;
+  color:#536078;border-radius:25px;font-size:12px;font-weight:700;
+}
+.category.active,.category:hover{background:var(--blue);color:white;border-color:var(--blue)}
+
+/* MATERIALS */
+.material-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.material-card{
+  background:white;border:1px solid #e7ebf3;border-radius:13px;
+  overflow:hidden;transition:.2s;
+}
+.material-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px #17233d12}
+.thumbnail{
+  height:155px;background:linear-gradient(135deg,#e8efff,#e9e3ff);
+  display:grid;place-items:center;font-size:55px;position:relative;
+}
+.type-label{
+  position:absolute;top:13px;left:13px;background:white;
+  border-radius:5px;padding:6px 9px;font-size:10px;font-weight:800;color:var(--blue);
+}
+.material-info{padding:18px}
+.material-info h3{font-size:15px;margin:10px 0}
+.material-info p{font-size:12px;color:var(--muted);line-height:1.6}
+.material-meta{display:flex;justify-content:space-between;margin:13px 0;color:var(--muted);font-size:11px}
+.view-btn{
+  width:100%;padding:11px;border:0;border-radius:7px;
+  background:#edf2ff;color:var(--blue);font-weight:800;font-size:12px;
+}
+.view-btn:hover{background:var(--blue);color:white}
+.empty{text-align:center;padding:35px;color:var(--muted);grid-column:1/-1}
+
+/* ADMIN */
+.admin-section{background:#edf2ff}
+.admin-panel{
+  max-width:650px;margin:auto;background:white;border:1px solid #e4eaf5;
+  border-radius:15px;padding:25px;
+}
+.admin-panel h3{margin-bottom:8px}
+.admin-panel>p{font-size:12px;color:var(--muted);margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}
+.field input,.field select{
+  width:100%;padding:12px;border:1px solid #dce3ef;border-radius:8px;
+  outline:none;background:white;
+}
+.field input:focus,.field select:focus{border-color:var(--blue)}
+.admin-panel .primary-btn{width:100%;padding:14px}
+#uploadMessage{font-size:12px;margin-top:13px;color:#16834a}
+
+/* VIEWER */
+.modal{
+  display:none;position:fixed;inset:0;background:#10182bcc;
+  z-index:100;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:white;width:min(950px,100%);height:min(85vh,750px);
+  border-radius:13px;overflow:hidden;display:flex;flex-direction:column;
+}
+.modal-top{
+  padding:15px 20px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid #e8edf5;
+}
+.modal-top h3{font-size:15px}
+.close-btn{border:0;background:#f0f2f7;border-radius:7px;padding:8px 12px}
+.viewer{flex:1;background:#e9edf5;min-height:0}
+.viewer iframe{width:100%;height:100%;border:0}
+.viewer-message{height:100%;display:grid;place-items:center;text-align:center;padding:25px;color:var(--muted)}
+.viewer-message a{color:var(--blue);font-weight:700}
+
+/* FOOTER */
+footer{background:#17233d;color:white;padding:35px 7%;text-align:center}
+footer p{font-size:12px;color:#bdc7d8;margin-top:10px;line-height:1.8}
+
+@media(max-width:800px){
+  .class-grid{grid-template-columns:repeat(2,1fr)}
+  .material-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-art{width:200px;height:190px;font-size:70px}
+}
+@media(max-width:600px){
+  header{padding:0 5%}
+  .menu{display:block}
+  nav{
+    display:none;position:absolute;top:74px;left:0;width:100%;
+    background:white;padding:22px;flex-direction:column;
+    box-shadow:0 10px 20px #17233d12;
+  }
+  nav.show{display:flex}
+  .header-btn{display:none}
+  .hero{padding:55px 6%;flex-direction:column;text-align:center}
+  .hero-art{width:180px;height:160px}
+  .search-area{padding:0 5%}
+  .search-box{padding:10px}
+  .search-box button{padding:10px}
+  .section{padding:50px 6%}
+  .material-grid{grid-template-columns:1fr}
+  .class-grid{gap:10px}
+  .class-card{padding:16px}
+  .section-head{align-items:start;flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="#home">CBSE <span>Study Hub</span></a>
+  <button class="menu" onclick="toggleMenu()">☰</button>
+
+  <nav id="navigation">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#classes" onclick="closeMenu()">Classes</a>
+    <a href="#explore" onclick="closeMenu()">Explore</a>
+    <a href="#admin" onclick="closeMenu()">Upload</a>
+  </nav>
+
+  <a href="#admin" class="header-btn">＋ Upload Material</a>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">WELCOME TO CBSE STUDY HUB</div>
+    <h1>Discover. Learn.<br><span>Grow Together.</span></h1>
+    <p>
+      Explore presentations, notes and study documents
+      created for CBSE students from Class 9 to Class 12.
+    </p>
+  </div>
+  <div class="hero-art">📚</div>
+</section>
+
+<div class="search-area">
+  <div class="search-box">
+    <input id="searchInput" placeholder="Search presentations, subjects or chapters..." oninput="renderMaterials()">
+    <button onclick="renderMaterials()">Search</button>
+  </div>
+</div>
+
+<section class="section" id="classes">
+  <div class="section-head">
+    <div>
+      <h2>Explore by Class</h2>
+      <p>Choose your class to discover learning resources.</p>
+    </div>
+    <a href="#explore" class="text-link">Explore all →</a>
+  </div>
+
+  <div class="class-grid">
+    <div class="class-card" onclick="chooseClass('9')">
+      <div class="class-icon">🎒</div>
+      <h3>Class 9</h3><p>Explore study resources</p>
+    </div>
+    <div class="class-card" onclick="chooseClass('10')">
+      <div class="class-icon">📘</div>
+      <h3>Class 10</h3><p>Explore study resources</p>
+    </div>
+    <div class="class-card" onclick="chooseClass('11')">
+      <div class="class-icon">🎓</div>
+      <h3>Class 11</h3><p>Explore study resources</p>
+    </div>
+    <div class="class-card" onclick="chooseClass('12')">
+      <div class="class-icon">🏆</div>
+      <h3>Class 12</h3><p>Explore study resources</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="explore" style="padding-top:15px">
+  <div class="section-head">
+    <div>
+      <h2>Explore Study Materials</h2>
+      <p>Find presentations, notes and documents.</p>
+    </div>
+    <span class="text-link" id="resourceCount">0 resources</span>
+  </div>
+
+  <div class="categories">
+    <button class="category active" onclick="chooseType('All',this)">All</button>
+    <button class="category" onclick="chooseType('PPT',this)">Presentations</button>
+    <button class="category" onclick="chooseType('PDF',this)">PDFs</button>
+    <button class="category" onclick="chooseType('Notes',this)">Notes</button>
+  </div>
+
+  <div class="categories">
+    <select id="classFilter" onchange="renderMaterials()" style="padding:10px;border:1px solid #ddd;border-radius:8px">
+      <option value="All">All Classes</option>
+      <option value="9">Class 9</option>
+      <option value="10">Class 10</option>
+      <option value="11">Class 11</option>
+      <option value="12">Class 12</option>
+    </select>
+  </div>
+
+  <div class="material-grid" id="materialGrid">
+    <div class="empty">No resources uploaded yet. Add your first resource from Admin.</div>
+  </div>
+</section>
+
+<section class="section admin-section" id="admin">
+  <div class="section-head">
+    <div>
+      <h2>Admin Upload Dashboard</h2>
+      <p>Add your study resources to CBSE Study Hub.</p>
+    </div>
+  </div>
+
+  <form class="admin-panel" id="uploadForm">
+    <h3>＋ Add New Resource</h3>
+    <p>Upload a file and add its details below.</p>
+
+    <div class="field">
+      <label>Resource Title</label>
+      <input id="materialTitle" placeholder="Example: Number Systems - Class 9" required>
+    </div>
+
+    <div class="field">
+      <label>Class</label>
+      <select id="uploadClass" required>
+        <option value="9">Class 9</option>
+        <option value="10">Class 10</option>
+        <option value="11">Class 11</option>
+        <option value="12">Class 12</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Resource Type</label>
+      <select id="uploadType" required>
+        <option value="PPT">Presentation (PPT)</option>
+        <option value="PDF">PDF Document</option>
+        <option value="Notes">Notes</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Choose File</label>
+      <input id="materialFile" type="file" accept=".pdf,.ppt,.pptx,.doc,.docx" required>
+    </div>
+
+    <div class="field">
+      <label>Online PPT Embed Link (optional)</label>
+      <input id="pptLink" type="url" placeholder="Google Slides embed link">
+    </div>
+
+    <button class="primary-btn" type="submit">Upload Resource</button>
+    <p id="uploadMessage"></p>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <div class="logo" style="color:white">CBSE Study Hub</div>
+  <p>Discover. Learn. Grow Together.</p>
+  <p>Independent educational platform. Not affiliated with CBSE.</p>
+  <p>© <span id="year"></span> CBSE Study Hub</p>
+</footer>
+
+<!-- RESOURCE VIEWER -->
+<div class="modal" id="viewerModal">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h3 id="viewerTitle">Resource Viewer</h3>
+      <button class="close-btn" onclick="closeViewer()">✕ Close</button>
+    </div>
+    <div class="viewer" id="viewerContent"></div>
+  </div>
+</div>
+
+<script>
+let resources = [];
+let selectedType = "All";
+
+function toggleMenu(){
+  document.getElementById("navigation").classList.toggle("show");
+}
+function closeMenu(){
+  document.getElementById("navigation").classList.remove("show");
+}
+function chooseClass(number){
+  document.getElementById("classFilter").value=number;
+  renderMaterials();
+  document.getElementById("explore").scrollIntoView({behavior:"smooth"});
+}
+function chooseType(type,button){
+  selectedType=type;
+  document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  renderMaterials();
+}
+function renderMaterials(){
+  const search=document.getElementById("searchInput").value.toLowerCase();
+  const classValue=document.getElementById("classFilter").value;
+  const grid=document.getElementById("materialGrid");
+
+  const filtered=resources.filter(r=>{
+    return (selectedType==="All" || r.type===selectedType) &&
+      (classValue==="All" || r.classNumber===classValue) &&
+      (r.title+" "+r.fileName+" "+r.classNumber).toLowerCase().includes(search);
+  });
+
+  document.getElementById("resourceCount").textContent=filtered.length+" resources";
+  grid.innerHTML="";
+
+  if(filtered.length===0){
+    grid.innerHTML='<div class="empty">No resources found. Try another search or upload a resource.</div>';
+    return;
+  }
+
+  filtered.forEach(r=>{
+    const card=document.createElement("div");
+    card.className="material-card";
+
+    const thumbnail=document.createElement("div");
+    thumbnail.className="thumbnail";
+    thumbnail.innerHTML='<span class="type-label"></span>';
+    thumbnail.querySelector(".type-label").textContent=r.type;
+    thumbnail.append(document.createTextNode(
+      r.type==="PPT"?"📊":r.type==="PDF"?"📄":"📝"
+    ));
+
+    const info=document.createElement("div");
+    info.className="material-info";
+
+    const heading=document.createElement("h3");
+    heading.textContent=r.title;
+
+    const description=document.createElement("p");
+    description.textContent="Class "+r.classNumber+" • "+r.fileName;
+
+    const meta=document.createElement("div");
+    meta.className="material-meta";
+    meta.textContent="CBSE Study Hub";
+
+    const view=document.createElement("button");
+    view.className="view-btn";
+    view.textContent="View Resource →";
+    view.onclick=()=>openViewer(r);
+
+    info.append(heading,description,meta,view);
+    card.append(thumbnail,info);
+    grid.append(card);
+  });
+}
+
+function openViewer(resource){
+  document.getElementById("viewerTitle").textContent=resource.title;
+  const area=document.getElementById("viewerContent");
+  area.innerHTML="";
+
+  if(resource.type==="PDF"){
+    const frame=document.createElement("iframe");
+    frame.src=resource.url;
+    frame.title=resource.title;
+    area.append(frame);
+  }else if(resource.type==="PPT" && resource.pptLink){
+    const frame=document.createElement("iframe");
+    frame.src=resource.pptLink;
+    frame.allowFullscreen=true;
+    frame.title=resource.title;
+    area.append(frame);
+  }else{
+    const message=document.createElement("div");
+    message.className="viewer-message";
+    message.innerHTML="<div><h3>Presentation preview unavailable</h3><p style='margin:12px 0'>To show this PPT on the website, add a published Google Slides embed link when uploading it.</p></div>";
+    area.append(message);
+  }
+
+  document.getElementById("viewerModal").classList.add("show");
+}
+function closeViewer(){
+  document.getElementById("viewerModal").classList.remove("show");
+  document.getElementById("viewerContent").innerHTML="";
+}
+
+document.getElementById("uploadForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const title=document.getElementById("materialTitle").value.trim();
+  const classNumber=document.getElementById("uploadClass").value;
+  const type=document.getElementById("uploadType").value;
+  const file=document.getElementById("materialFile").files[0];
+  const pptLink=document.getElementById("pptLink").value.trim();
+
+  if(!file || !title) return;
+
+  const ext=file.name.split(".").pop().toLowerCase();
+  const allowed=["pdf","ppt","pptx","doc","docx"];
+
+  if(!allowed.includes(ext)){
+    alert("Please choose a PDF, PPT or document file.");
+    return;
+  }
+
+  if(type==="PDF" && ext!=="pdf"){
+    alert("For PDF resources, please select a PDF file.");
+    return;
+  }
+  if(type==="PPT" && !["ppt","pptx"].includes(ext)){
+    alert("For PPT resources, please select a PPT or PPTX file.");
+    return;
+  }
+
+  const url=URL.createObjectURL(file);
+
+  resources.unshift({
+    title,
+    classNumber,
+    type,
+    fileName:file.name,
+    url,
+    pptLink
+  });
+
+  document.getElementById("uploadMessage").textContent="Resource added successfully!";
+  document.getElementById("uploadForm").reset();
+  renderMaterials();
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+
+</body>
+</html>
